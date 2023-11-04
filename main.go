@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/mcabej/api"
 	"github.com/mcabej/db"
@@ -15,10 +16,12 @@ func init() {
 func main() {
 	router := gin.Default()
 
-	car := router.Group("/car")
+	router.Use(static.Serve("/", static.LocalFile("./app/build", true)))
+
+	car := router.Group("api/car")
 	{
 		car.GET("/:id", api.GetCar)
-		car.GET("/list", api.ListCars)
+		car.GET("/cars", api.ListCars)
 
 		car.POST("/create", api.CreateCar)
 		car.PUT("/:id", api.UpdateCar)
@@ -26,15 +29,15 @@ func main() {
 		car.DELETE("/:id", api.DeleteCar)
 	}
 
-	color := router.Group("/color")
+	color := router.Group("api/color")
 	{
 		color.GET("/:id", api.GetColor)
-		color.GET("/list", api.ListColors)
+		color.GET("/colors", api.ListColors)
 
 		color.POST("/create", api.CreateColor)
-		color.PUT("/update/:id", api.UpdateColor)
+		color.PUT("/:id", api.UpdateColor)
 
-		color.DELETE("/delete/:id", api.DeleteColor)
+		color.DELETE("/:id", api.DeleteColor)
 	}
 
 	router.Run()
