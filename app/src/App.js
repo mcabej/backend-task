@@ -54,7 +54,7 @@ function CarFormModal({isEdit, car, colorOptions, setCars}) {
       })
     });
     
-    if (response.status === 200) {
+    if (response.ok) {
       const result = await response.json();
       setCars(prev => [...prev, result.result]);
 
@@ -81,8 +81,23 @@ function CarFormModal({isEdit, car, colorOptions, setCars}) {
     });
 
     
-    if (response.status === 200) {
-      window.location.reload();
+    if (response.ok) {
+      const result = await response.json();
+      const newCar = result['result'];
+
+      function updateCar(cars) {
+        return cars.map(c => {
+          if (c.id === newCar.id) {
+            return newCar
+          }
+
+          return c
+        });
+      }
+
+      setCars(prev => updateCar(prev));
+
+      onClose();
     }
   }
 
@@ -140,8 +155,19 @@ function CarFormModal({isEdit, car, colorOptions, setCars}) {
   )
 }
 
-function DeleteConfirmModal({car}) {
+function DeleteConfirmModal({car, setCars}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  async function deleteCar() {
+    const response = await fetch(`/api/car/${car.id}`, {
+      method: "DELETE"
+    })
+
+    if (response.ok) {
+      setCars(prev => [...prev].filter(x => x.id !== car.id))
+      onClose();      
+    }
+  }
 
   return (
     <>
@@ -167,7 +193,7 @@ function DeleteConfirmModal({car}) {
               <Button onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme='red' onClick={onClose} ml={3}>
+              <Button colorScheme='red' onClick={deleteCar} ml={3}>
                 Delete
               </Button>
             </AlertDialogFooter>
@@ -257,8 +283,8 @@ function App() {
                         {new Date(car.buildDate).toLocaleDateString()}
                       </Flex>                       
                       <Flex mt={3} gap={3}>                        
-                        <CarFormModal isEdit car={car} colorOptions={colors}/>
-                        <DeleteConfirmModal car={car} />
+                        <CarFormModal isEdit car={car} colorOptions={colors} setCars={setCars}/>
+                        <DeleteConfirmModal car={car} setCars={setCars} />
                       </Flex>
                     </Flex>
                   )

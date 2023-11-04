@@ -1,5 +1,8 @@
 # Drivvn Backend Task
 
+### Postman API Endpoints
+https://www.postman.com/avionics-engineer-99532960/workspace/public-apis/collection/27922445-9a793100-b15a-45b0-9b87-ff99260f4ec2?action=share&creator=27922445
+
 ## Prerequisites
 - Go 
 - Node 
