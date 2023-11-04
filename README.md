@@ -1,62 +1,32 @@
-# Backend Task
+# Drivvn Backend Task
 
-## Introduction
+## Prerequisites
+- Go 
+- Node 
+- npm
+- Postgres (Check Postgres Docker section)
 
-This is a simple task to create a suitable API back-end incorporating:
+## Starting Up
+Configure .env to point at your local db
 
- * several routes and HTTP methods
- * validation of input URI segments, parameters and data
- * generating suitable responses and/or error messages
- * testing
+1. Run `go mod tidy`
+2. Run `go install`
+3. Go to app directory, then
+4. Run `npm install; npm run build`
+5. Go to root of the project, then
+6. Run: `go run db/migrate/migrate.go`
+7. Run `go run main.go`
+8. If the port hasn't been changed, visit http://localhost:8080/
 
-The solution **must** be in a back-end lanaguage capable of running on a HTTP server. You can use whatever framework or dependencies you require - e.g. PHP/Symfony, Ruby/Rails, Python/Django, JavaScript/Next. You could even use no external dependencies - it's up to you. For data storage, you are also free to chose whatever you think is suitable - e.g. MongoDB, SQLite, MySQL PostgreSQL - or you could simply store the cars in a cache or session, or use mock data. The important aspect is the handling of requests and generating responses.
+## Running Test
+1. Go to services `cd services`
+2. Run `go test`
 
-## Minimum Requirements
+## Postgres Docker
+If you don't have Postgres installed but you have Docker then do the following:
 
- * The API should allow the adding, deleting and listing of cars
- * The age of each car submitted can not be older than four years
- * There should be four initial colour options - red, blue, white and black
- * The API should respond with appropriate HTTP response codes and messages
- * The API should accept and return valid JSON
- * A suite of suitable tests should be created for these requirements
+#### Start Postgres Instance
+Run `docker run --name postgres -e POSTGRES_PASSWORD=root -e POSTGRES_USER=root -p 5432:5432 -d postgres`
 
-## Endpoints
-
-```
-POST /cars
-GET /car/<id>
-DELETE /cars/<id>
-GET /cars
-```
-
-## Data Models
-
-### Car
-
- * ID (integer)
- * Make (string)
- * Model (string)
- * Build Date (date)
- * Colour ID (integer)
-
-### Colour
-
- * ID (integer)
- * Name (string)
-
-## Optional Requirements
-
- * Endpoints to add, update, delete and list additional colours
- * A short description of how extra data models could improve the design
- * A short description on how best the API could be documented
-
-## Submission
-
-Here's what you'll need to send us:
-
- * A link to a **public** GitHub repo that you have created, containing the code
- * It should contain a suite of unit tests (using whichever test framework you prefer)
- * It should also contain a README.md file explaining how to run the app and its tests
- * You may also send us a link to a location hosting your code (for example, Heroku)
-
-**The task should take around 2-3 hours.**
+#### Create DB
+Run `docker exec -it postgres createdb --username=root --owner=root drivvn`
