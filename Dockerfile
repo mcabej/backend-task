@@ -1,13 +1,9 @@
-FROM golang:1.21
-
-WORKDIR /opt
-
-COPY go.mod go.sum ./
-
-RUN go mod tidy
-
-EXPOSE 8080
-
+FROM golang:latest
+WORKDIR /app
 COPY . .
-
-CMD [ "go run main.go" ]
+COPY wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
+RUN go mod download
+RUN go build -o /godocker
+EXPOSE 8080
+CMD [ "/godocker" ]

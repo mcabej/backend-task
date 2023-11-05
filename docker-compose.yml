@@ -1,0 +1,45 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    volumes:
+      - ./app:/app
+    networks:
+      - drivvn-netw
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - frontend
+      - database      
+    command: ["/wait-for-it.sh", "database:5432", "--", "/godocker"]
+    volumes:
+      - .:/app
+    networks:
+      - drivvn-netw
+
+  database:
+    image: postgres:16.0
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: drivvn
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - drivvn-netw
+
+volumes:
+  db-data:
+
+networks:
+  drivvn-netw:
+    driver: bridge
