@@ -9,7 +9,7 @@ import (
 )
 
 type colorRequest struct {
-	Name string `json:"make" binding:"required"`
+	Name string `json:"name" binding:"required"`
 }
 
 func CreateColor(c *gin.Context) {
@@ -100,7 +100,11 @@ func UpdateColor(c *gin.Context) {
 func DeleteColor(c *gin.Context) {
 	id := c.Param("id")
 
-	db.DB.Delete(&models.Color{}, id)
+	result := db.DB.Delete(&models.Color{}, id)
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, result.Error.Error())
+		return
+	}
 
 	c.Status(http.StatusOK)
 }
