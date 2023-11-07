@@ -60,7 +60,7 @@ Configure .env to point at your local db and make sure that the DB_URL are corre
 - [x] A short description on how best the API could be documented
 
 ## Extra Data Models
-Really depends on the business requirements what extra data models could be helpful. If this will be your typical admin type web app, then I could see modelling the User, Roles and Permissions be helpful in identifying who can access what. Expanding on the car domain, we could extract Make and Model - each has a correlating foreign keys. So for example: 
+Really depends on the business requirements what extra data models could be helpful. If this will be your typical admin type web app, then I could see modelling the User, Roles and Permissions be helpful in identifying who can access what. Expanding on the car domain, we could extract Make and Model. So for example: 
 
 **Make**
 - id
