@@ -74,10 +74,14 @@ Really depends on the business requirements what extra data models could be help
 This will allow us to constraint model to the correct make. I would also not model the color just have as a property of Car.
 
 ## API Documentation
-There are several ways to document APIs. We could leverage the existing Postman this will be helpful for devs to quickly test their endpoints. We could also use Swagger to auto generate api documentation for us.
+There are several ways to document APIs. We could leverage the existing Postman this will be helpful for devs to quickly test their endpoints, [Postman](https://learning.postman.com/docs/writing-scripts/test-scripts/) also have test scripts (in JavaScript) embedded so we can quickly write test to verify api responses. We could also use Swagger to auto generate api documentation for us.
 
 ## Known bugs and limitations
 - You cannot edit without providing BuildDate
 - Frontend does not support error handling
-- Test located in api folder does not quite work yet but services do
+- Test located in api folder does not quite work yet but test in services folder do (there are some api test embedded into postman)
+    - For example in Cars/Fetch list cars
+      `pm.test('Response status code is 200', function () {
+          pm.response.to.have.status(200);
+      })`
 - .env shouldn't be existing in multiple places, e.g. inside services and root directory
