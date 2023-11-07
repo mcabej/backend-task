@@ -8,7 +8,6 @@ A simple API back-end task for prospective drivvn software developers.
 #### Without Docker
 - Go 
 - Node 
-- npm
 - Postgres
 
 ## Starting Up With Docker
