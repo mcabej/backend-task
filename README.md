@@ -1,6 +1,8 @@
 # Drivvn Backend Task
-A simple API back-end task for prospective drivvn software developers.
-**[Postman API Endpoints](https://www.postman.com/avionics-engineer-99532960/workspace/public-apis/collection/27922445-9a793100-b15a-45b0-9b87-ff99260f4ec2?action=share&creator=27922445)**
+A simple API back-end task for prospective drivvn software developers.\
+**[Postman API Endpoints](https://www.postman.com/avionics-engineer-99532960/workspace/public-apis/collection/27922445-9a793100-b15a-45b0-9b87-ff99260f4ec2?action=share&creator=27922445)**\
+**[Live Demo - Deployed On Render](https://drivvn.onrender.com/)**\
+**[Live Demo - Deployed On AWS EC2](http://3.10.179.146/)**
 
 ## Prerequisites
 - Docker
