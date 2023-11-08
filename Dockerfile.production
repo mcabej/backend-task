@@ -1,0 +1,20 @@
+FROM --platform=linux/amd64 node:alpine as frontend
+WORKDIR /frontend
+COPY ./app/package.json .
+COPY ./app/package-lock.json .
+RUN npm install
+COPY ./app .
+RUN npm run build
+
+FROM --platform=linux/amd64 golang:alpine
+WORKDIR /src
+COPY ./go.mod .
+COPY ./go.sum .
+RUN go mod download
+COPY . .
+RUN rm -rf ./app && rm .env
+COPY --from=frontend /frontend/build ./app/build
+RUN go build -o /drivvn
+EXPOSE 8080
+CMD go run ./db/migrate/migrate.go \
+    && /drivvn
