@@ -12,6 +12,7 @@ func PopulateColors() {
 		{Name: "red"},
 		{Name: "blue"},
 		{Name: "white"},
+		{Name: "black"},
 	}
 
 	result := db.DB.Create(colors)
